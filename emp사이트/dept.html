@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 부서 추가 팝업 -->
+        <div class="write-popup">
+            <div class="editor">
+                <div class="input-box">
+                    <label for="i_deptno">부서 번호 : </label>
+                    <input id="i_deptno" type="number" placeholder="부서번호를 입력하세요...">
+                </div>
+                <div class="input-box">
+                    <label for="i_dname">부서 이름 : </label>
+                    <input id="i_dname" type="text" placeholder="부서이름을 입력하세요...">
+                </div>
+                <div class="input-box">
+                    <label for="i_loc">근무지 : </label>
+                    <input id="i_loc" type="text" placeholder="근무지를 입력하세요...">
+                </div>
+                <div class="btn-area">
+                    <a href="#" class="btn-cancel">취소</a>
+                    <a href="#" class="btn-success"  onclick="setDept()">등록</a>
+                </div>
+            </div>
+        </div>
+        <!-- 부서 수정 -->
+        <div class="update-popup">
+            <div class="editor">
+                <div class="close">
+                    <a href="#" class="btn-close">닫기</a>
+                </div>
+                <div class="input-box">
+                    <label for="u_deptno">부서 번호 : </label>
+                    <input id="u_deptno" type="number" value="20" readonly>
+                </div>
+                <div class="input-box">
+                    <label for="u_dname">부서 이름 : </label>
+                    <input id="u_dname" type="text" value="RESEARCH">
+                </div>
+                <div class="input-box">
+                    <label for="u_loc">근무지 : </label>
+                    <input id="u_loc" type="text" value="NEW YORK">
+                </div>
+                <div class="btn-area">
+                    <input id="boardIdHidden" type="hidden">
+                    <a id="contentUpdate" href="#" class="btn-update"  onclick="updateDept()">수정</a>
+                    <a id="contentDelete" href="#" class="btn-delete" onclick="fireDept()">삭제</a>
+                </div>
+            </div>
+        </div>
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
+                        <span class="title">DW EMP</span>                
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">사원 목록</span>                
+                    </a>
+                </li>
+                <li>
+                    <a href="dept.html">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="title">부서 목록</span>                
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                        <span class="title">접속 기록</span>                
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Sign Out</span>                
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- main -->
+    <div class="main">
+         <!-- table -->
+         <div class="details">
+             <div class="recentOrders">
+                 <div class="cardHeader">
+                     <h2>부서 목록</h2>
+                     <a href="#" id="deptAdd" class="btn">부서 추가</a>
+                 </div>
+                 <table>
+                     <thead>
+                         <tr>
+                            <th>부서 번호</th>
+                            <th>부서 이름</th>
+                            <th>부서 근무지</th>
+                            <th>사원 수</th>
+                         </tr>
+                     </thead>
+                     <tbody id="deptData">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <!-- 페이징 처리하는 HTML -->
+                 <div class="pagination">
+                    <a>Previous</a>
+                    <a>1</a>
+                    <a>2</a>  	
+                    <a>3</a>
+                    <a>4</a>
+                    <a>5</a>
+                    <a>Next</a>
+                 </div>
+             </div>
+         </div>
+    </div>
+</body>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+<script>
+    $('#deptAdd').click(function(){
+        $('.write-popup').css('display', 'block');
+    });
+    $('.btn-cancel').click(function(){
+        $('.write-popup').css('display', 'none');
+    });
+    $('.btn-close').click(function(){
+        location.reload();//새로 고침
+    });
+    let list = document.querySelectorAll('.navigation li');
+    function activeLink(){
+        list.forEach((item) => {item.classList.remove('hovered')});
+        this.classList.add('hovered');
+    }
+    list.forEach((item) => {item.addEventListener('mouseover',activeLink)});
+
+    function getBoard(){
+        $('.update-popup').css('display', 'block');
+    }
+</script>
+<script src="dept.js"></script>
+</html>
